@@ -1,17 +1,24 @@
-# --- Funciones Originales con Ajustes de Flujo ---
 
 def pedido_pizzas():
     precio_base = 10 
     cliente = input("Ingrese el nombre del cliente: ")
     cantidad = int(input("Ingrese la cantidad de pizzas que desea comprar: "))
     quiere_bebida = input("¿Quiere bebida? (si/no):")
-    
     total = precio_base * cantidad
     if quiere_bebida == "si":
         total += 3
-        
+    sabor_pizza = input("Sabor de la pizza: ")
+    extra= input("desea un sabor extra? (si/no): ")
+    if extra == "si":
+        extra1 = input("Ingrediente extra 1: ")
+        extras = input("desea otro ingrediente extra? (si/no): ")
+        if extras == "si":
+           extra2 = input("Ingrediente extra 2: ")
+    else:
+        extra1 = "Ninguno"
+        extra2 = "Ninguno"
+    estado_pizza = preparar_sabores(sabor_pizza, extra1, extra2)
     return cliente, total, cantidad
-
 def preparar_sabores(sabor, extra1, extra2):
     ingredientes = [sabor, extra1, extra2]
     print(f"\nCocinando pizza de {sabor}...")
@@ -60,21 +67,7 @@ def mostrar_ticket(cliente, total_final, estado, confirmacion_pago):
     print("=" * 25)
 
 nombre_cli, monto_inicial, cant = pedido_pizzas()
-
-
-sabor_p = input("Sabor de la pizza: ")
-e1 = input("Ingrediente extra 1: ")
-e2 = input("Ingrediente extra 2: ")
-estado_p = preparar_sabores(sabor_p, e1, e2)
-
 control_calidad(cant)
 monto_con_descuento = calcular_descuento(monto_inicial)
 pago_estado = confirmar_pago()
-mostrar_ticket(nombre_cli, monto_con_descuento, estado_p, pago_estado)
-def mostrar_ticket(cliente, total_pagar, estado):
-    print("-" * 20)
-    print(cliente)
-    print(f"Estado: {estado}")
-    print(f"Total: ${total_pagar}")
-    print("-" * 20)
-    mostrar_ticket(cliente, monto, estado_pizza)
+mostrar_ticket(nombre_cli, monto_con_descuento, estado_pizza , pago_estado)
